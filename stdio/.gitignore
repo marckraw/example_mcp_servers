@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+
+# Build output
+build/
+dist/
+*.js
+*.js.map
+*.d.ts
+*.d.ts.map
+
+# Keep TypeScript config
+!*.config.js
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional caches
+.eslintcache
+.stylelintcache
+

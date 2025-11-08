@@ -1,0 +1,30 @@
+{
+    "name": "streamable-http",
+    "type": "module",
+    "version": "1.0.0",
+    "description": "MCP Server with Streamable HTTP transport",
+    "main": "build/index.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "node build/index.js",
+        "dev": "tsx src/index.ts",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "files": [
+        "build"
+    ],
+    "dependencies": {
+        "@modelcontextprotocol/sdk": "^1.21.1",
+        "express": "^4.21.2",
+        "zod": "^3.25.76"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "@types/node": "^24.10.0",
+        "tsx": "^4.19.2",
+        "typescript": "^5.9.3"
+    }
+}
