@@ -7,6 +7,7 @@ A Model Context Protocol (MCP) server that provides weather information via the 
 - **Streamable HTTP Transport**: Implements the MCP Streamable HTTP specification
 - **Server-Sent Events (SSE)**: Supports streaming responses
 - **Bearer Token Authentication**: Secure access with token-based auth
+- **CORS Support**: Configured for specific allowed origins
 - **Stateless Mode**: Simple session-free operation
 - **Three Tools**:
   - `get_alerts`: Get weather alerts for a US state
@@ -138,7 +139,18 @@ curl -X POST http://localhost:5555/mcp \
 - **Port**: 5555
 - **Endpoint**: `/mcp` (supports both GET and POST)
 - **Authentication**: Bearer token (configurable via environment variable)
+- **CORS**: Configured for specific origins (MCP Inspector, TheGrid apps)
 - **Session Management**: Disabled (stateless mode)
+
+## CORS Configuration
+
+The server allows requests from the following origins:
+
+- `http://localhost:6274` (MCP Inspector)
+- `https://hq-thegrid-develop.up.railway.app`
+- `https://hq-thegrid-production.up.railway.app`
+
+To add more origins, edit the `ALLOWED_ORIGINS` array in `src/index.ts`.
 
 ## Protocol Details
 

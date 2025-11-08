@@ -2,8 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { z } from "zod";
 import express, { Request, Response, NextFunction } from "express";
-import dotenv from "dotenv";
-dotenv.config();
+import cors from "cors";
 
 const NWS_API_BASE = "https://api.weather.gov";
 const USER_AGENT = "weather-app/1.0";
@@ -12,6 +11,13 @@ const PORT = 5555;
 // Bearer token for authentication
 // In production, use environment variables and secure token management
 const BEARER_TOKEN = process.env.BEARER_TOKEN || "my-secret-token-12345";
+
+// Allowed CORS origins
+const ALLOWED_ORIGINS = [
+  "http://localhost:6274", // MCP Inspector
+  "https://hq-thegrid-develop.up.railway.app",
+  "https://hq-thegrid-production.up.railway.app",
+];
 
 // Helper function for making NWS API requests
 async function makeNWSRequest<T>(url: string): Promise<T | null> {
@@ -344,6 +350,28 @@ function requireBearerAuth(req: Request, res: Response, next: NextFunction) {
 
 // Create Express app
 const app = express();
+
+// Configure CORS
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      if (ALLOWED_ORIGINS.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`Origin ${origin} not allowed by CORS`));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "Accept"],
+  })
+);
+
 app.use(express.json());
 
 // MCP endpoint supporting both GET and POST (with Bearer auth)
